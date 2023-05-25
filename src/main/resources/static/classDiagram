@@ -1,0 +1,109 @@
+@startuml
+
+
+class User{
+    -{field}id:int
+    -{field}username: String
+    -{field}password:String
+    -{field}bucketList:list<BucketListDestination>
+    +{method} getID()
+    +{method} setID(id)
+    +{method} getUsername()
+    +{method} getPassword()
+    +{method} setUsername(username)
+    +{method} setPassword(password)
+}
+
+class Destination{
+    -{field}id:int
+    -{field}geolocation:String
+    -{field}title:String
+    -{field}image:String
+    -{field}description:String
+    -{field}arrivalDate:date
+    -{field}departureDate:date
+    -{field}isPrivate:boolean
+    +{method}getID()
+    +{method}setID(id)
+    +{method}getGeolocation()
+    +{method}setGeolocation(geolocation)
+    +{method}getTitle()
+    +{method}setTitle(title)
+    +{method}getImage()
+    +{method}setImage(image)
+    +{method}getDescription()
+    +{method}setDescription(description)
+    +{method}getArrivalDate()
+    +{method}setArrivalDate(arrival)
+    +{method}getDepartureDate()
+    +{method}setDepartureDate(departure)
+    +{method}getIsPrivate()
+    +{method}setIsPrivate(isPrivate)
+}
+
+class BucketListDestination{
+    -{field}id:int
+    -{field}user:User
+    -{field}destination:Destination
+    +{method}getID()
+    +{method}setID(id)
+    +{method}getUser()
+    +{method}setUser(user)
+    +{method}getDestination()
+    +{method}setDestination(destination)
+}
+
+
+interface BucketListRepository{
+    +{method}getBucketListDestinations(username)
+}
+
+interface DestinationRepository{
+    +{method}getDestinationsByIsPrivate(isPrivate)
+}
+
+interface UserRepository{
+   +{method}findUserByUsernameAndPassword(username, password)
+   +{method}findUserByUsername(username)
+}
+
+class DestinationService{
+    -{field}destinationRepository:DestinationRepository
+    +{method}addDestinationToPublicList(destination)
+    +{method}addPrivateDestination(destination)
+    +{method}getPublicDestinationList()
+    +{method}getDestinationById(id)
+}
+
+class UserService{
+    -{field}userRepository:UserRepository
+    -{field}bucketListRepository:BucketListRepository
+    +{method}loginUser(username, password)
+    +{method}addDestinationToBucketList(username, destination)
+    +{method}getBucketList(username)
+    +{method}addUser(user)
+    +{method}getUsers()
+}
+
+class Controller{
+    -{field}userService:UserService
+    -{field}destinationService:DestinationService
+    +{method}loginForUser(userDTO)
+    +{method}getPublicDestinationList()
+    +{method}addPublicDestination(destination, username)
+    +{method}addNewDestinationToBucketList(destination, username)
+    +{method}addPublicDestinationToBucketList(destination, username)
+    +{method}getBucketListForUser(username)
+    +{method}addUser(user)
+    +{method}getUsers()
+}
+
+class UserDTO
+
+BucketListDestination *-- User
+BucketListDestination *-- Destination
+
+
+
+
+@enduml
