@@ -24,7 +24,7 @@ import EditIcon from "@mui/icons-material/Edit"
 import {Link} from "react-router-dom"
 import {BACKEND_API_URL} from "../../constants";
 import { Destination } from "../models/Destination";
-
+import { usernameToSend } from "../GloabalUsername";
 function GetBucketList() {
     const [destinations,
         setDestinations] = useState < Destination[] > ([]);
@@ -35,7 +35,7 @@ function GetBucketList() {
 
     useEffect(() => {
         setLoading(true);
-        fetch(`${BACKEND_API_URL}/BucketList`)
+        fetch(`${BACKEND_API_URL}/bucketlist?username=${usernameToSend}`)
             .then(res => res.json())
             .then(data => {
                 setDestinations(data)

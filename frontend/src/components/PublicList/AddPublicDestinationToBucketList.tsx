@@ -6,14 +6,15 @@ import { Link, useNavigate, useParams } from "react-router-dom";
 import { DestinationForm } from "../Forms/DestinationForm";
 import { Button, Card, CardActions, Container, IconButton } from "@mui/material";
 import ArrowBackIcon from "@mui/icons-material/ArrowBack"
+import { usernameToSend } from "../GloabalUsername";
 
-export const AddPrivateDestination = () => {
+export const AddPublicDestinationToBucketList = () => {
 	const {id} = useParams();
     const navigate = useNavigate();
 
     const handleAdd = async (event: { preventDefault: () => void }) => {
         event.preventDefault();
-        await axios.post(`${BACKEND_API_URL}/user/bucketlist/new/${id}`);
+        await axios.post(`${BACKEND_API_URL}/user/bucketlist/new?username=${usernameToSend}`, id);
         navigate("/user/bucketList");
     }
 
