@@ -1,107 +1,75 @@
 @startuml
 
 
-class User{
-    -{field}id:int
-    -{field}username: String
-    -{field}password:String
-    -{field}bucketList:list<BucketListDestination>
-    +{method} getID()
-    +{method} setID(id)
-    +{method} getUsername()
-    +{method} getPassword()
-    +{method} setUsername(username)
-    +{method} setPassword(password)
+
+
+together{
+    class Controller{
+
+        }
 }
 
-class Destination{
-    -{field}id:int
-    -{field}geolocation:String
-    -{field}title:String
-    -{field}image:String
-    -{field}description:String
-    -{field}arrivalDate:date
-    -{field}departureDate:date
-    -{field}isPrivate:boolean
-    +{method}getID()
-    +{method}setID(id)
-    +{method}getGeolocation()
-    +{method}setGeolocation(geolocation)
-    +{method}getTitle()
-    +{method}setTitle(title)
-    +{method}getImage()
-    +{method}setImage(image)
-    +{method}getDescription()
-    +{method}setDescription(description)
-    +{method}getArrivalDate()
-    +{method}setArrivalDate(arrival)
-    +{method}getDepartureDate()
-    +{method}setDepartureDate(departure)
-    +{method}getIsPrivate()
-    +{method}setIsPrivate(isPrivate)
-}
+together{
+    class DestinationService{
+    }
+    class UserService{
 
-class BucketListDestination{
-    -{field}id:int
-    -{field}user:User
-    -{field}destination:Destination
-    +{method}getID()
-    +{method}setID(id)
-    +{method}getUser()
-    +{method}setUser(user)
-    +{method}getDestination()
-    +{method}setDestination(destination)
+    }
+}
+together{
+    interface UserRepository{
+
+    }
+    interface BucketListRepository{
+
+    }
+
+    interface DestinationRepository{
+
+    }
 }
 
 
-interface BucketListRepository{
-    +{method}getBucketListDestinations(username)
+together {
+    class User{
+    }
+
+    class Destination{
+
+    }
+
+    class BucketListDestination{
+
+    }
 }
 
-interface DestinationRepository{
-    +{method}getDestinationsByIsPrivate(isPrivate)
-}
 
-interface UserRepository{
-   +{method}findUserByUsernameAndPassword(username, password)
-   +{method}findUserByUsername(username)
-}
+Controller "1" *-- "1" UserService
+Controller "1" *-- "1" DestinationService
 
-class DestinationService{
-    -{field}destinationRepository:DestinationRepository
-    +{method}addDestinationToPublicList(destination)
-    +{method}addPrivateDestination(destination)
-    +{method}getPublicDestinationList()
-    +{method}getDestinationById(id)
-}
 
-class UserService{
-    -{field}userRepository:UserRepository
-    -{field}bucketListRepository:BucketListRepository
-    +{method}loginUser(username, password)
-    +{method}addDestinationToBucketList(username, destination)
-    +{method}getBucketList(username)
-    +{method}addUser(user)
-    +{method}getUsers()
-}
+DestinationService "1" *-- "1" DestinationRepository
+UserService "1" *-- "1" BucketListRepository
+UserService "1" *-- "1" UserRepository
 
-class Controller{
-    -{field}userService:UserService
-    -{field}destinationService:DestinationService
-    +{method}loginForUser(userDTO)
-    +{method}getPublicDestinationList()
-    +{method}addPublicDestination(destination, username)
-    +{method}addNewDestinationToBucketList(destination, username)
-    +{method}addPublicDestinationToBucketList(destination, username)
-    +{method}getBucketListForUser(username)
-    +{method}addUser(user)
-    +{method}getUsers()
-}
 
-class UserDTO
+DestinationRepository "1" o-- "0..*" Destination
+UserRepository "1" o-- "0..*" User
+BucketListRepository "1" o-- "0..*" BucketListDestination
 
-BucketListDestination *-- User
-BucketListDestination *-- Destination
+BucketListDestination "1" *-- "0..*" User
+BucketListDestination "1" *-- "0..*" Destination
+
+
+
+
+
+
+
+
+
+
+
 
 
 
