@@ -25,8 +25,8 @@ export const AppMenuUser = () => {
 						Bucket List Application
 					</Typography>
 					<Button
-						variant={path.startsWith("user/publicListUser") ? "outlined" : "text"}
-						to="/publicListUser"
+						variant={path.startsWith("publicListUser") ? "outlined" : "text"}
+						to="publicListUser"
 						component={Link}
 						color="inherit"
 						sx={{ mr: 5 }}
@@ -34,8 +34,8 @@ export const AppMenuUser = () => {
 						Public List
 					</Button>
 					<Button
-						variant={path.startsWith("user/bucketList") ? "outlined" : "text"}
-						to="/bucketList"
+						variant={path.startsWith("bucketList") ? "outlined" : "text"}
+						to="bucketList"
 						component={Link}
 						color="inherit"
 						sx={{ mr: 5 }}

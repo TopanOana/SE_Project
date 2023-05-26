@@ -1,21 +1,37 @@
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { Container, Paper, TextField, Button, Box } from '@mui/material';
+import { User } from './models/User';
+import axios from 'axios';
+import { BACKEND_API_URL } from '../constants';
+import { Await } from 'react-router-dom';
+import { UserDTO } from './models/UserDTO';
+import { setUsernameToSend } from './GloabalUsername';
 
 const Login: React.FC = () => {
   const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
+  const [error, setError] = useState(null);
   const navigate = useNavigate();
 
   const handleLogin = () => {
     // Perform login logic here
     // You can use a library like Axios to make API requests
-
-    // Example logic: If the login is successful, redirect to the home page
-    if (username === 'admin' && password === 'password') {
-      navigate('/home');
-    }
-  };
+    var userDTO = new UserDTO()
+    userDTO.username = username;
+    userDTO.password = password;
+    axios.post(`${BACKEND_API_URL}/login`, userDTO).then((response) =>{
+      if (username === 'admin' && password === 'admin') {
+        navigate('/admin');
+      } else {
+          navigate('/user');
+      }
+    })
+    .catch((error) => {
+      window.alert("Invalid credentials!");
+    })
+    setUsernameToSend(username);
+  }
 
   return (
     <div
@@ -26,6 +42,7 @@ const Login: React.FC = () => {
         transform: 'translate(-50%, -50%)',
       }}
     >
+        {error ? <p>An error occurred: {error}</p> : null}
       <Container maxWidth="sm">
         <Paper
           elevation={3}

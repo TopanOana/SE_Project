@@ -50,6 +50,22 @@ function GetAllDestinationsUser() {
             marginTop: "40px",
         }}>
             <Typography variant="h3" color="black" align="left">Public List</Typography>
+            {(
+                <List
+                    sx={{
+                    display: "flex",
+                    flexDirection: "row",
+                    padding: "1px"
+                }}>
+                    <ListItem sx={{
+                        width: "auto"
+                    }}>
+                        <Button variant="outlined" component={Link} to={`/admin/publicListAdmin/add`}>
+                            + Add a new destination
+                        </Button>
+                    </ListItem>
+                </List>
+            )}
             {!loading && (
                 <TableContainer component={Paper} >
                     <Table>

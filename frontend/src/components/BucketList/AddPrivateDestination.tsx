@@ -17,7 +17,7 @@ export const AddPrivateDestination = () => {
 		try {
 			console.log(destination);
 			await axios.post(`${BACKEND_API_URL}/userBucketList/add/new`, destination);
-			navigate("/BucketList");
+			navigate("user/BucketList");
 		} catch (error) {
 			console.log(error);
 		}

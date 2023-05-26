@@ -4,7 +4,7 @@ import { Destination } from "../models/Destination";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
 import { DestinationForm } from "../Forms/DestinationForm";
-
+import { usernameToSend } from "../GloabalUsername";
 export const AddPublicDestination = () => {
 	const navigate = useNavigate();
 
@@ -14,8 +14,9 @@ export const AddPublicDestination = () => {
 		event.preventDefault();
 		try {
 			console.log(destination);
-			await axios.post(`${BACKEND_API_URL}/publiclist/add`, destination);
-			navigate("/BucketList");
+			console.log(usernameToSend)
+			await axios.post(`${BACKEND_API_URL}/publiclist/add?username=${usernameToSend}`, destination);
+			navigate("/admin/publicListAdmin");
 		} catch (error) {
 			console.log(error);
 		}

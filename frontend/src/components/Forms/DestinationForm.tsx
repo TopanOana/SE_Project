@@ -19,10 +19,7 @@ export const DestinationForm = (
 		<Container>
 			<Card>
 				<CardContent>
-					<IconButton component={Link} to={`/publicList`} sx={{float: "left"}}>
-						<ArrowBackIcon/>
-					</IconButton>
-					<IconButton component={Link} sx={{ mr: 3 }} to={`/publicList`}>
+					<IconButton component={Link} sx={{ mr: 3 }} to={``}>
 					</IconButton>{" "}
 					<form onSubmit={apiCallMethod}>
 						<TextField

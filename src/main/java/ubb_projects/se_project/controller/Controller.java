@@ -11,7 +11,7 @@ import ubb_projects.se_project.service.UserService;
 
 import java.util.List;
 
-@CrossOrigin(origins = "http://localhost:8080")
+@CrossOrigin(origins = "*")
 @RestController
 @AllArgsConstructor
 public class Controller {
@@ -22,7 +22,7 @@ public class Controller {
     private final DestinationService destinationService;
 
 
-    @GetMapping("/login")
+    @PostMapping("/login")
     public User loginForUser(@RequestBody UserDTO userDTO){
         User user = userService.loginUser(userDTO.getUsername(),userDTO.getPassword());
         if(user==null){

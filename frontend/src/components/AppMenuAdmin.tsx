@@ -25,8 +25,8 @@ export const AppMenuAdmin = () => {
 						Bucket List Application (Admin mode)
 					</Typography>
 					<Button
-						variant={path.startsWith("admin/publicListAdmin") ? "outlined" : "text"}
-						to="admin/publicListAdmin"
+						variant={path.startsWith("publicListAdmin") ? "outlined" : "text"}
+						to="publicListAdmin"
 						component={Link}
 						color="inherit"
 						sx={{ mr: 5 }}
