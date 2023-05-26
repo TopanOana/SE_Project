@@ -18,16 +18,13 @@ function App() {
   return (
     <React.Fragment>
       <Router>
+        <AppMenuUser/>
         <AppMenuAdmin/>
         <Routes>
           <Route path='/' element={<Login/>}/>
           <Route path="/admin/publicListAdmin" element={<GetAllDestinationsAdmin/>}/>
           <Route path="/admin/publicListAdmin/add" element={<AddPublicDestination/>}/>
-        </Routes>
-        <AppMenuUser/>
-        <Routes>
           <Route path="/user/publicListUser" element={<GetAllDestinationsUser/>}/>
-
           <Route path="/user/bucketList" element={<GetBucketList/>}/>
           <Route path="/user/bucketList/add" element={<AddPrivateDestination/>}/>
         </Routes>

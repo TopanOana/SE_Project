@@ -30,6 +30,8 @@ function GetAllDestinationsAdmin() {
         setDestinations] = useState < Destination[] > ([]);
     const [loading,
         setLoading] = useState(false);
+    const [currentPage,
+        setCurrentPage] = useState(1);
     const [count,
         setCount] = useState(1);
 
@@ -41,7 +43,7 @@ function GetAllDestinationsAdmin() {
                 setDestinations(data)
                 setLoading(false);
             });
-    });
+    }, [currentPage]);
 
     return (
         <Container sx={{

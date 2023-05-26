@@ -31,7 +31,7 @@ export const AppMenuAdmin = () => {
 						color="inherit"
 						sx={{ mr: 5 }}
 						startIcon={<LocalLibraryIcon />}>
-						Publc List
+						Public List
 					</Button>
 				</Toolbar>
 			</AppBar>

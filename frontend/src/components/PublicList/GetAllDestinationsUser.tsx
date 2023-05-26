@@ -30,6 +30,8 @@ function GetAllDestinationsUser() {
         setDestinations] = useState < Destination[] > ([]);
     const [loading,
         setLoading] = useState(false);
+    const [currentPage,
+        setCurrentPage] = useState(1);
     const [count,
         setCount] = useState(1);
 
@@ -41,7 +43,7 @@ function GetAllDestinationsUser() {
                 setDestinations(data)
                 setLoading(false);
             });
-    });
+    }, [currentPage]);
 
     return (
         <Container sx={{
@@ -75,7 +77,7 @@ function GetAllDestinationsUser() {
                                 <TableCell>
                                     Departure Date
                                 </TableCell>
-                                <TableCell>Add</TableCell>
+                                <TableCell>Add to bucket list</TableCell>
                             </TableRow>
                         </TableHead>
                         <TableBody>

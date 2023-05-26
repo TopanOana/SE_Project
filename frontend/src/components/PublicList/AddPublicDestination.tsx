@@ -14,7 +14,7 @@ export const AddPublicDestination = () => {
 		event.preventDefault();
 		try {
 			console.log(destination);
-			await axios.post(`${BACKEND_API_URL}/destination/`, destination);
+			await axios.post(`${BACKEND_API_URL}/publiclist/add`, destination);
 			navigate("/BucketList");
 		} catch (error) {
 			console.log(error);
