@@ -96,7 +96,7 @@ function GetAllDestinationsUser() {
                                             sx={{
                                             mr: 3
                                         }}
-                                            to={`/destinationsUser/addToBucketList/${destination.id}`}>
+                                            to={`user/bucketList/addToBucketList/${destination.id}`}>
                                             <Tooltip title="Add" arrow>
                                                 <AddIcon
                                                     sx={{
