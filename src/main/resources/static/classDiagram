@@ -4,61 +4,95 @@
 
 
 together{
-    class Controller{
-
-        }
+    class Controller <<RESTController>>{
+        -{field}userService:UserService
+        -{field}destinationService:DestinationService
+        +{method}loginForUser(userDTO)
+        +{method}getPublicDestinationList()
+        +{method}addPublicDestination(destination, username)
+        +{method}addNewDestinationToBucketList(destination, username)
+        +{method}addPublicDestinationToBucketList(destination, username)
+        +{method}getBucketListForUser(username)
+        +{method}addUser(user)
+        +{method}getUsers()
+    }
 }
 
 together{
-    class DestinationService{
+    class DestinationService <<service>>{
+        -{field}destinationRepository:DestinationRepository
+        +{method}addDestinationToPublicList(destination)
+        +{method}addPrivateDestination(destination)
+        +{method}getPublicDestinationList()
+        +{method}getDestinationById(id)
     }
-    class UserService{
-
+    class UserService <<service>>{
+        -{field}userRepository:UserRepository
+        -{field}bucketListRepository:BucketListRepository
+        +{method}loginUser(username, password)
+        +{method}addDestinationToBucketList(username, destination)
+        +{method}getBucketList(username)
+        +{method}addUser(user)
+        +{method}getUsers()
     }
 }
 together{
-    interface UserRepository{
-
+    interface UserRepository <<JpaRepository>>{
+        +{method}findUserByUsernameAndPassword(username, password)
+        +{method}findUserByUsername(username)
     }
-    interface BucketListRepository{
-
+    interface DestinationRepository <<JpaRepository>>{
+            +{method}getDestinationsByIsPrivate(isPrivate)
     }
-
-    interface DestinationRepository{
-
+    interface BucketListRepository <<JpaRepository>>{
+        +{method}getBucketListDestinations(username)
     }
 }
 
 
 together {
-    class User{
+    class User <<entity>>{
+        -{field}id:int
+        -{field}username: String
+        -{field}password:String
+        -{field}bucketList:list<BucketListDestination>
     }
 
-    class Destination{
-
+    class Destination <<entity>>{
+        -{field}id:int
+        -{field}geolocation:String
+        -{field}title:String
+        -{field}image:String
+        -{field}description:String
+        -{field}arrivalDate:date
+        -{field}departureDate:date
+        -{field}isPrivate:boolean
     }
 
-    class BucketListDestination{
-
+    class BucketListDestination <<entity>>{
+        -{field}id:int
+        -{field}user:User
+        -{field}destination:Destination
     }
 }
 
 
-Controller "1" *-- "1" UserService
-Controller "1" *-- "1" DestinationService
+Controller "1" *-- "1" UserService : userService
+Controller "1" *-- "1" DestinationService : destinationService
 
 
-DestinationService "1" *-- "1" DestinationRepository
-UserService "1" *-- "1" BucketListRepository
-UserService "1" *-- "1" UserRepository
+DestinationService "1" *-- "1" DestinationRepository : destinationRepository
+UserService "1" *-- "1" BucketListRepository : bucketListRepository
+UserService "1" *-- "1" UserRepository : userRepository
 
 
-DestinationRepository "1" o-- "0..*" Destination
-UserRepository "1" o-- "0..*" User
-BucketListRepository "1" o-- "0..*" BucketListDestination
+DestinationRepository "1" o-- "0..*" Destination  : contains
+UserRepository "1" o-- "0..*" User : contains
+BucketListRepository "1" o-- "0..*" BucketListDestination : contains
 
-BucketListDestination "1" *-- "0..*" User
-BucketListDestination "1" *-- "0..*" Destination
+BucketListDestination  *-- "1" User : user
+BucketListDestination  --> "0..*" User : bucketList
+BucketListDestination "1" *-- "1" Destination : destination
 
 
 
