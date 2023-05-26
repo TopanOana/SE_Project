@@ -11,6 +11,7 @@ import ubb_projects.se_project.service.UserService;
 
 import java.util.List;
 
+@CrossOrigin(origins = "http://localhost:8080")
 @RestController
 @AllArgsConstructor
 public class Controller {
