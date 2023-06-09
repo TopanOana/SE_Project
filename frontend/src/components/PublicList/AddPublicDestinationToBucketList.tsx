@@ -12,23 +12,27 @@ export const AddPublicDestinationToBucketList = () => {
 	const {id} = useParams();
     const navigate = useNavigate();
 
+    const data = {
+        destination: id, // include the id in the destination object
+        username: usernameToSend
+      };
     const handleAdd = async (event: { preventDefault: () => void }) => {
         event.preventDefault();
-        await axios.post(`${BACKEND_API_URL}/user/bucketlist/new?username=${usernameToSend}`, id);
-        navigate("/user/bucketList");
+        await axios.post(`${BACKEND_API_URL}/user/bucketlist/public`, data);
+        navigate("/bucketList");
     }
 
 
 	return ( 
         <Container>
             <Card>
-                <IconButton component={Link} to={`/user/bucketList`}>
+                <IconButton component={Link} to={`/publicListUser`}>
                     <ArrowBackIcon/>
                 </IconButton>
                 Are you sure you want to add the selected destination?
             <CardActions>
                <Button onClick={handleAdd}>Add it!</Button>
-               <Button onClick={() => navigate("/user/bucketList")}>Cancel</Button>
+               <Button onClick={() => navigate("/publicListUser")}>Cancel</Button>
             </CardActions>
             </Card>
         </Container>

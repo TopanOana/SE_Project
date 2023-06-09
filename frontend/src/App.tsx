@@ -10,11 +10,12 @@ import { AddPrivateDestination } from './components/BucketList/AddPrivateDestina
 import GetBucketList from './components/BucketList/GetBucketList'
 import { AddPublicDestination } from './components/PublicList/AddPublicDestination';
 import Login from './components/Login';
+import { AddPublicDestinationToBucketList } from './components/PublicList/AddPublicDestinationToBucketList';
 
 
 function App() {
   const [count, setCount] = useState(0)
-
+  
   return (
     <React.Fragment>
       <Router>
@@ -24,9 +25,10 @@ function App() {
           <Route path='/user' element={<AppMenuUser/>}/>
           <Route path="/admin/publicListAdmin" element={<><AppMenuAdmin/><GetAllDestinationsAdmin/></>}/>
           <Route path="/admin/publicListAdmin/add" element={<AddPublicDestination/>}/>
-          <Route path="/user/publicListUser" element={<GetAllDestinationsUser/>}/>
-          <Route path="/user/bucketList" element={<GetBucketList/>}/>
-          <Route path="/user/bucketList/add" element={<AddPrivateDestination/>}/>
+          <Route path="/publicListUser" element={<><AppMenuUser/><GetAllDestinationsUser/></>}/>
+          <Route path="/bucketList" element={<><AppMenuUser/><GetBucketList/></>}/>
+          <Route path="/bucketList/add" element={<AddPrivateDestination/>}/>
+          <Route path="/publicListUser/addPublicDestination/:id" element={<AddPublicDestinationToBucketList/>}/>
         </Routes>
       </Router>
     </React.Fragment>

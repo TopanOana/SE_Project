@@ -10,6 +10,7 @@ import ubb_projects.se_project.service.DestinationService;
 import ubb_projects.se_project.service.UserService;
 
 import java.util.List;
+import java.util.Map;
 
 @CrossOrigin(origins = "*")
 @RestController
@@ -54,12 +55,18 @@ public class Controller {
     }
 
 
-    @PutMapping("/user/bucketlist/public")
-    public Destination addPublicDestinationToBucketList(@RequestParam int destination, @RequestParam String username){
+    @PostMapping("/user/bucketlist/public")
+    public Destination addPublicDestinationToBucketList(@RequestBody Map<String, String> requestData){
+        String destination = requestData.get("destination");
+        String username = requestData.get("username");
+
         if(username.equalsIgnoreCase("admin")){
             throw new RuntimeException("bad request: admin does not have a bucket list");
         }
-        Destination forBucket = destinationService.getDestinationById(destination);
+        System.out.println(destination);
+        System.out.println(username);
+        int destination_id = Integer.parseInt(destination);
+        Destination forBucket = destinationService.getDestinationById(destination_id);
         return userService.addDestinationToBucketList(username,forBucket);
     }
 

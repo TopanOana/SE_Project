@@ -2,10 +2,12 @@ import { Box, AppBar, Toolbar, IconButton, Typography, Button } from "@mui/mater
 import { Link, useLocation } from "react-router-dom";
 import SchoolIcon from "@mui/icons-material/School";
 import LocalLibraryIcon from "@mui/icons-material/LocalLibrary";
+import { usernameToSend } from './GloabalUsername';
 
 export const AppMenuUser = () => {
 	const location = useLocation();
 	const path = location.pathname;
+	const user = usernameToSend;
 
 	return (
 		<Box sx={{ marginBottom: "2%" }}>
@@ -26,7 +28,7 @@ export const AppMenuUser = () => {
 					</Typography>
 					<Button
 						variant={path.startsWith("publicListUser") ? "outlined" : "text"}
-						to="publicListUser"
+						to="/publicListUser"
 						component={Link}
 						color="inherit"
 						sx={{ mr: 5 }}
@@ -35,7 +37,7 @@ export const AppMenuUser = () => {
 					</Button>
 					<Button
 						variant={path.startsWith("bucketList") ? "outlined" : "text"}
-						to="bucketList"
+						to="/bucketList"
 						component={Link}
 						color="inherit"
 						sx={{ mr: 5 }}

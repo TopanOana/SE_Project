@@ -32,6 +32,8 @@ function GetBucketList() {
         setLoading] = useState(false);
     const [count,
         setCount] = useState(1);
+    const [currentPage,
+        setCurrentPage] = useState(1);
 
     useEffect(() => {
         setLoading(true);
@@ -41,7 +43,7 @@ function GetBucketList() {
                 setDestinations(data)
                 setLoading(false);
             });
-    });
+    }, [currentPage]);
 
     return (
         <Container sx={{
@@ -58,7 +60,7 @@ function GetBucketList() {
                     <ListItem sx={{
                         width: "auto"
                     }}>
-                        <Button variant="outlined" component={Link} to={`/destiantions/add`}>
+                        <Button variant="outlined" component={Link} to={`/bucketList/add`}>
                             + Add a new private destination
                         </Button>
                     </ListItem>
@@ -90,8 +92,7 @@ function GetBucketList() {
                                 </TableCell>
                                 <TableCell>
                                     Departure Date
-                                </TableCell>
-                                <TableCell>Delete</TableCell>
+                                </TableCell>                               
                             </TableRow>
                         </TableHead>
                         <TableBody>
@@ -104,21 +105,6 @@ function GetBucketList() {
                                     <TableCell>{destination.description}</TableCell>
                                     <TableCell>{destination.arrivalDate}</TableCell>
                                     <TableCell>{destination.departureDate}</TableCell>
-                                    <TableCell>
-                                        <IconButton
-                                            component={Link}
-                                            sx={{
-                                            mr: 3
-                                        }}
-                                            to={`/BucketList/deleteFromBucketList/${destination.id}`}>
-                                            <Tooltip title="Delete" arrow>
-                                                <DeleteForeverIcon
-                                                    sx={{
-                                                    color: "red"
-                                                }}/>
-                                            </Tooltip>
-                                        </IconButton>
-                                    </TableCell>
                                 </TableRow>
                             ))}
                         </TableBody>
